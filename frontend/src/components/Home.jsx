@@ -4,9 +4,9 @@ const Home = () => {
   return (
     <>
         <header className='shadow'>
-
-            <button className='btn btn-danger'>Click Me</button>
-
+            <div className="bg-dark text-center py-3">
+                <span className='text-white'>Your fashion partner</span>
+            </div>
         </header>
     </>
   )
