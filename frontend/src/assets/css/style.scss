@@ -1,9 +1,12 @@
 /**** Google Font **********/
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
+// @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
 
 
 /**** Global Variables **********/
-$primary-font: "DM Sans", sans-serif;
+$primary-font: 'Poppins', sans-serif;
 $primary-white: #FFF;
 $primary-color: #43c3D1;
 $primary-black: #061123;
@@ -59,22 +62,10 @@ ul{
 }
 
 .container{
-    max-width: 1540px;
+    max-width: 1440px;
 }
 
 .btn{
-    &.btn-size{
-        background-color: rgba($primary-black, 0.03);
-        border-color: rgba($primary-black, 0.05);
-        padding: 7px 15px;
-        &.active{
-            border-color:  rgba($primary-black, 0.20);;
-        }
-        &:hover{
-            border-color:  rgba($primary-black, 0.20);;
-            color: $primary-black;
-        }
-    }
     &.btn-primary{
         background-color: $primary-color;
         border-color: $primary-color;
@@ -95,6 +86,19 @@ ul{
             background-color: $primary-color;
             border-color: $primary-color;
             color: $primary-white;
+        }
+    }
+}
+
+header{
+    .navbar-expand-lg{
+        .navbar-nav{
+            .nav-link{
+                padding: 10px 15px;
+                font-size: 1.2rem;
+                font-weight: 500;
+                color: $primary-black;
+            }
         }
     }
 }
