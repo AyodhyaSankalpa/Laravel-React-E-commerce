@@ -7,8 +7,8 @@ const LatestProducts = () => {
     <section className="section-2 py-5">
             <div className="container">
                 <h2>New Arrivals</h2>                
-                <div className="row mt-4">
-                  <div className="col-md-3">
+                <div className="row mt-4 m-1">
+                  <div className="col-md-3 col-6 p-1">
                     <div className="product card border-0 shadow">
                       <div className="card-img">
                           <img src={ProductOneImage} alt="" className='w-100' />
@@ -21,7 +21,7 @@ const LatestProducts = () => {
                       </div>
                     </div>
                   </div>
-                  <div className="col-md-3">
+                  <div className="col-md-3 col-6 p-1">
                     <div className="product card border-0 shadow">
                       <div className="card-img">
                           <img src={ProductTwoImage} alt="" className='w-100' />
@@ -34,7 +34,7 @@ const LatestProducts = () => {
                       </div>
                     </div>
                   </div>
-                  <div className="col-md-3">
+                  <div className="col-md-3 col-6 p-1">
                     <div className="product card border-0 shadow">
                       <div className="card-img">
                           <img src={ProductOneImage} alt="" className='w-100' />
@@ -47,7 +47,7 @@ const LatestProducts = () => {
                       </div>
                     </div>
                   </div>
-                  <div className="col-md-3">
+                  <div className="col-md-3 col-6 p-1">
                     <div className="product card border-0 shadow">
                       <div className="card-img">
                           <img src={ProductTwoImage} alt="" className='w-100' />
