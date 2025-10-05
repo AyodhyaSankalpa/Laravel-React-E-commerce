@@ -1,6 +1,7 @@
 import React from 'react'
 import Layout from './common/Layout'
 import ProductOneImage from '../assets/images/f1.jpg';
+import { Link } from 'react-router-dom';
 
 
 const Shop = () => {
@@ -65,10 +66,12 @@ const Shop = () => {
                 <div className="col-md-4 col-6 p-1">
                   <div className="product card border-0 shadow">
                     <div className="card-img">
+                      <Link to="/product">
                         <img src={ProductOneImage} alt="" className='w-100' />
+                      </Link>
                     </div>
                     <div className="card-body">
-                      <a href="">Men's Shirt</a>
+                      <Link to="/product">Men's Shirt</Link>
                       <div className="price">
                         $50 <span className='text-decoration-line-through'>$80</span>
                       </div>
