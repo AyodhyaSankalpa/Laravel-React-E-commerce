@@ -48,7 +48,7 @@ const Show = () => {
             <div className="col-md-3">
               <Sidebar/>
             </div>
-            <div className="col-md-9">
+            <div className="col-md-9 mb-5">
                 <div className="card shadow">
                     <div className="card-body p-4">
                         {
@@ -82,12 +82,12 @@ const Show = () => {
                                                 <tr>
                                                     <td>{product.id}</td>
                                                     <td>
-
-                                                        <img src={product.image_url} alt="" width={50}/>
-
+                                                        {
+                                                            (product.image_url == "") ? <img src='https://placehold.co/50x50'/> : <img src={product.image_url} alt="" width={50}/>
+                                                        }                                                        
                                                     </td>
                                                     <td>{product.title}</td>
-                                                    <td>{product.price}</td>
+                                                    <td>${product.price}</td>
                                                     <td>{product.qty}</td>
                                                     <td>{product.sku}</td>
                                                     <td>
