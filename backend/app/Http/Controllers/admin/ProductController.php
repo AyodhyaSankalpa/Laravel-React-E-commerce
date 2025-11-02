@@ -5,6 +5,7 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
 use App\Models\ProductImage;
+use App\Models\ProductSize;
 use App\Models\TempImage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -18,7 +19,7 @@ class ProductController extends Controller
     {
 
         $products = Product::orderBy('created_at','DESC')
-                    ->with('product_images')
+                    ->with(['product_images','product_sizes'])
                     ->get();
         return response()->json([
             'status' => 200,
@@ -60,6 +61,15 @@ class ProductController extends Controller
         $product->is_featured = $request->is_featured;
         $product->barcode = $request->barcode;
         $product->save();
+
+        if (!empty($request->sizes)){ 
+            foreach ($request->sizes as $sizeId){
+                $productSize = new ProductSize();
+                $productSize->size_id = $sizeId;
+                $productSize->product_id = $product->id;
+                $productSize->save();
+            }
+        }
 
         // Save the product image
 
@@ -124,7 +134,7 @@ class ProductController extends Controller
     // this method will be show single product
     public function show($id)
     {
-        $product = Product::with('product_images')->find($id);
+        $product = Product::with('product_images','product_sizes')->find($id);
 
         if ($product == null ) {
 
@@ -135,9 +145,12 @@ class ProductController extends Controller
 
         }
 
+        $productSizes = $product->product_sizes()->pluck('size_id');
+
         return response()->json([
             'status' => 200,
-            'data' => $product
+            'data' => $product,
+            'productSizes' => $productSizes
         ],200);
     }
 
@@ -186,6 +199,16 @@ class ProductController extends Controller
         $product->barcode = $request->barcode;
         $product->save();
 
+        if (!empty($request->sizes)){
+            ProductSize::where('product_id',$product->id)->delete();
+
+            foreach ($request->sizes as $sizeId){
+                $productSize = new ProductSize();
+                $productSize->size_id = $sizeId;
+                $productSize->product_id = $product->id;
+                $productSize->save();
+            }
+        }
 
         return response()->json([
             'status' => 200,
