@@ -27,5 +27,6 @@ Route::group(['middleware' => 'auth:sanctum'],function(){
     Route::get('sizes',[SizeController::class,'index']);
     Route::resource('products',ProductController::class);
     Route::post('temp-images',[TempImageController::class,'store']);
+    Route::post('save-product-image',[ProductController::class,'saveProductImage']);
 
 });

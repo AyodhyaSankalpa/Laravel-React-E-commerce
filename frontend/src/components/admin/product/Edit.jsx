@@ -14,8 +14,9 @@ const Edit = ({ placeholder }) => {
   const [disable, setDisable] = useState(false)
   const [categories, setCategories] = useState([])
   const [brands, setBrands] = useState([])
-  const [gallery, setGallery] = useState([])
-  const [galleryImages, setGalleryImages] = useState([])
+  // const [gallery, setGallery] = useState([])
+  const [productImages, setProductImages] = useState([])
+  // const [galleryImages, setGalleryImages] = useState([])
   const navigate = useNavigate();
   const params = useParams();
 
@@ -46,6 +47,7 @@ const Edit = ({ placeholder }) => {
             })
             .then(res => res.json())
             .then(result => {
+              setProductImages(result.data.product_images)
               reset({
                 title: result.data.title,
                 category: result.data.category_id,
@@ -131,10 +133,11 @@ const Edit = ({ placeholder }) => {
             const formData = new FormData();
             const file = e.target.files[0];
             formData.append("image",file);
+            formData.append("product_id", params.id); // ✅ send product_id to backend
             setDisable(true)
     
-            const res = await fetch(`${apiUrl}/temp-images`,{
-                method: 'POST',
+            const res = await fetch(`${apiUrl}/save-product-image`,{
+                method: 'POST', 
                 headers: {
                     'Accept' : 'application/json',
                     'Authorization' : `Bearer ${adminToken()}`
@@ -142,16 +145,25 @@ const Edit = ({ placeholder }) => {
                 body: formData
             })
             .then(res => res.json())
-            .then(result => {          
-              gallery.push(result.data.id); []
-              setGallery(gallery)
-    
-              galleryImages.push(result.data.image_url)
-              setGalleryImages(galleryImages)
+            .then(result => {
+              
+              if (result.status == 200){
+                  // productImages.push(result.data)
+                  // setProductImages(productImages)
+                   // ✅ use spread syntax so React re-renders properly
+                  setProductImages((prev) => [...prev, result.data]);
+                  // toast.success(result.message);
+              } else {
+                toast.error(result.errors.image[0]);
+              }
+              
                setDisable(false)
                e.target.value = ""          
           })
         }
+
+        
+
 
         useEffect(() => {
           fetchCategories();
@@ -390,13 +402,13 @@ const Edit = ({ placeholder }) => {
                             <div className="mb-3">
                               <div className="row">
                                 {
-                                  galleryImages && galleryImages.map((image,index) => {
+                                  productImages && productImages.map((productImage,index) => {
                                     return (                                      
                                       <div className="col-md-3" key={`image-$(index)`}>
                                         <div className="card shadow">
-                                          <img src={image} alt="" className='w-100'/>
-                                          <button className="btn btn-danger" onClick={() => deleteImage(image)}>Delete</button>
+                                          <img src={productImage.image_url} alt="" className='w-100'/>                                          
                                         </div>
+                                        <button className="btn btn-danger mt-3 w-100" onClick={() => deleteImage(image)}>Delete</button>
                                       </div>
                                     )
                                   })
