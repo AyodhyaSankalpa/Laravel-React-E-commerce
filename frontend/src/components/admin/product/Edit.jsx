@@ -191,7 +191,7 @@ const Edit = ({ placeholder }) => {
             })
             .then(res => res.json())
             .then(result => {
-              if(reset.status == 200) {
+              if(result.status == 200) {
                   toast.success(result.message)
               }
               else{
@@ -201,6 +201,29 @@ const Edit = ({ placeholder }) => {
           })
         }
 
+        const deleteImage = async (id) => {
+          if (confirm("Are you shure you want to delete image?")) {
+                const res = await fetch(`${apiUrl}/delete-product-image/${id}`,{
+                    method: 'DELETE',
+                    headers: {
+                        'Content-type' : 'application/json',
+                        'Accept' : 'application/json',
+                        'Authorization' : `Bearer ${adminToken()}`
+                    }
+                })
+                .then(res => res.json())
+                .then(result => {
+                  if(result.status == 200) {
+                    const newProductImages =productImages.filter(productImage => productImage.id != id)
+                    setProductImages(newProductImages)
+                    toast.success(result.message)
+                  }else{
+                    toast.error(result.message)
+                  }
+              })
+          }
+          
+        }
 
         useEffect(() => {
           fetchCategories();
@@ -474,8 +497,8 @@ const Edit = ({ placeholder }) => {
                                         <div className="card shadow">
                                           <img src={productImage.image_url} alt="" className='w-100'/>                                          
                                         </div>
-                                        <button className="btn btn-danger mt-3 w-100" onClick={() => deleteImage(image)}>Delete</button>
-                                        <button className="btn btn-secondary mt-3 w-100" onClick={() => changeImage(productImage.image)}>Set as Default</button>
+                                        <button type='button' className="btn btn-danger mt-3 w-100" onClick={() => deleteImage(productImage.id)}>Delete</button>
+                                        <button type='button' className="btn btn-secondary mt-3 w-100" onClick={() => changeImage(productImage.image)}>Set as Default</button>
                                       </div>
                                     )
                                   })
