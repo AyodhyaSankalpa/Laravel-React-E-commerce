@@ -219,7 +219,7 @@ class ProductController extends Controller
 
     public function destroy($id)
     {
-        $product = Product::find($id);
+        $product = Product::with('product_images')->find($id);
 
         if ($product == null ) {
 
@@ -231,6 +231,13 @@ class ProductController extends Controller
         }
 
         $product->delete();
+
+        if($product->product_images) {
+            foreach($product->product_images as $productImage) {
+                File::delete(public_path('uploads/products/large/'.$productImage->image));
+                File::delete(public_path('uploads/products/small/'.$productImage->image));
+            }
+        }
 
         return response()->json([
             'status' => 200,
