@@ -162,7 +162,26 @@ const Edit = ({ placeholder }) => {
           })
         }
 
-        
+        const changeImage = async (image) => {
+          const res = await fetch(`${apiUrl}/change-product-default-image?product_id=${params.id}&image=${image}`,{
+                method: 'GET',
+                headers: {
+                    'Content-type' : 'application/json',
+                    'Accept' : 'application/json',
+                    'Authorization' : `Bearer ${adminToken()}`
+                }
+            })
+            .then(res => res.json())
+            .then(result => {
+              if(reset.status == 200) {
+                  toast.success(result.message)
+              }
+              else{
+                console.log("Somthing went wrong");
+              }
+                //setBrands(result.data)            
+          })
+        }
 
 
         useEffect(() => {
@@ -409,6 +428,7 @@ const Edit = ({ placeholder }) => {
                                           <img src={productImage.image_url} alt="" className='w-100'/>                                          
                                         </div>
                                         <button className="btn btn-danger mt-3 w-100" onClick={() => deleteImage(image)}>Delete</button>
+                                        <button className="btn btn-secondary mt-3 w-100" onClick={() => changeImage(productImage.image)}>Set as Default</button>
                                       </div>
                                     )
                                   })
