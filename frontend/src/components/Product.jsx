@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import Layout from './common/Layout'
 import { Link, useParams } from 'react-router-dom'
 import { Rating } from 'react-simple-star-rating'
@@ -16,14 +16,19 @@ import ProductImgThree from '../assets/images/Mens/seven.jpg'
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
 import { apiUrl } from './common/http'
+import { CartContext } from './context/Cart'
+import { toast } from 'react-toastify'
 
     const Product = () => {
     const [thumbsSwiper, setThumbsSwiper] = useState(null);
     const [rating, setRating] = useState(4)
     const [product, setProduct] = useState([])
     const [productImages, setProductImages] = useState([])
+    const [sizeSelected, setSizeSelected] = useState(null)
     const [productSizes, setProductSizes] = useState([])
     const params = useParams();
+    const { addToCart } = useContext(CartContext)
+
 
     const fetchProduct = () => {
         fetch(`${apiUrl}/get-product/${params.id}`,{
@@ -45,6 +50,22 @@ import { apiUrl } from './common/http'
          
         })
       }
+
+      const handleAddToCart = () => {
+        if (productSizes.length > 0) {
+
+            if (sizeSelected == null) {
+                toast.error("Please select a size")
+            } else  {
+                addToCart(product,sizeSelected)
+                toast.success("Please successfully added to cart")
+            }
+        }else {
+            addToCart(product,null)
+            toast.error("Please successfully added to cart")
+        }
+        
+      } 
 
      useEffect(() => {
         fetchProduct()
@@ -89,7 +110,7 @@ import { apiUrl } from './common/http'
                                     productImages && productImages.map(product_image => {
                                         return(
 
-                                            <SwiperSlide>
+                                            <SwiperSlide  key={`image-sm-${product_image.id}`}>
                                                 <div className='content'>
                                                     <img 
                                                         src={product_image.image_url} 
@@ -127,7 +148,7 @@ import { apiUrl } from './common/http'
                                     productImages && productImages.map(product_image => {
                                         return(
 
-                                            <SwiperSlide>
+                                            <SwiperSlide key={`image-${product_image.id}`}>
                                                 <div className='content'>
                                                     <img 
                                                         src={product_image.image_url} 
@@ -177,7 +198,12 @@ import { apiUrl } from './common/http'
                             {
                                productSizes && productSizes.map(product_size => {
                                     return(
-                                        <button className="btn btn-size me-2">{product_size.sizes.name}</button>
+                                        <button 
+                                        key={`p-size-${product_size.id}`}
+                                        onClick={() => setSizeSelected(product_size.sizes.name)}
+                                        className={`btn btn-size me-2 ${sizeSelected == product_size.sizes.name ? 'active' : ''}`}
+                                        
+                                        >{product_size.sizes.name}</button>
                                     )
                                 }) 
                             }
@@ -186,7 +212,9 @@ import { apiUrl } from './common/http'
                     </div>
 
                     <div className="add-to-cart my-4">
-                        <button className="btn btn-primary text-uppercase">Add To Cart</button>
+                        <button 
+                        onClick={() => handleAddToCart()}
+                        className="btn btn-primary text-uppercase">Add To Cart</button>
                     </div>
 
                     <hr />
