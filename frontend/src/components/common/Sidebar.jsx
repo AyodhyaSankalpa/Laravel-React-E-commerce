@@ -37,7 +37,7 @@ const sidebar = () => {
                     </li>
                   </ul>
                 </div>
-              </div>
+    </div>
   )
 }
 
