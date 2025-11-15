@@ -219,7 +219,7 @@ const Checkout = () => {
                                                     <img src={item.image_url} width={80} alt="" />
                                                 </td>
                                                 <td width={600}>
-                                                    <h4>Men's Shirt</h4>
+                                                    <h4>{item.title}</h4>
                                                     <div className='d-flex align-item-center pt-3'>
                                                         <span>${item.price}</span>
                                                         <div className="ps-3">
