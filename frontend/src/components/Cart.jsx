@@ -107,7 +107,7 @@ const Cart = () => {
                         </div>
 
                         <div className="d-flex justify-content-end py-3">
-                            <button className="btn btn-primary text-uppercase">proceed to checkout</button>
+                            <Link to={'/checkout'} className="btn btn-primary text-uppercase">proceed to checkout</Link>
                         </div>
 
                     </div>

@@ -23,7 +23,7 @@ const Header = () => {
       .then(res => res.json())
       .then(result => {
         if (result.status == 200) {
-          setCategories(result.data)
+          setCategories(result.data);
         } else {
           console.log("Somthing went wrong");
         }      
@@ -33,7 +33,7 @@ const Header = () => {
 
     useEffect(() => {
       fetchCategories();
-    })
+    },[])
 
   return (
     <header className='shadow'>
