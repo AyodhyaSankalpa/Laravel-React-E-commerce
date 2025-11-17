@@ -14,7 +14,7 @@ const {logout} = useContext(AuthContext);
                       <Link to="/account">Account</Link>
                     </li>
                     <li>
-                      <Link to="#">Orders</Link>
+                      <Link to="/account/orders">Orders</Link>
                     </li>
                     <li>
                       <Link to="#">Change Password</Link>
