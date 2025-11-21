@@ -33,6 +33,7 @@ Route::group(['middleware' => ['auth:sanctum','checkUserRole']],function(){
     Route::get('get-orders',[AccountController::class,'getOrders']);
     Route::post('update-profile',[AccountController::class,'updateProfile']);
     Route::get('get-profile-details',[AccountController::class,'getAccountDetails']);
+    Route::post('create-payment-intent',[OrderController::class,'createPaymentIntent']);
 
 });
 

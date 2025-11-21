@@ -49,7 +49,7 @@ const MyOrders = () => {
             <div className="col-md-3">
               <UserSidebar/>
             </div>
-            <div className="col-md-9">
+            <div className="col-md-9 mb-5">
                 <div className="card shadow">
                     <div className="card-body p-4">
                       {
