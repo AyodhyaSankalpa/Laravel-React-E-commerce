@@ -1,7 +1,38 @@
-import React from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import Logo2 from '../../assets/images/my-logo2.png'
+import { CartContext } from '../context/Cart';
+import { apiUrl } from './http';
+import { Link } from 'react-router-dom';
 
 const Footer = () => {
+
+  const [categories, setCategories] = useState([]);
+  
+    const {getQty} = useContext(CartContext);
+  
+    const fetchCategories = () => {
+        fetch(`${apiUrl}/get-categories`,{
+          method: 'GET',
+          headers: {
+            'Content-type' : 'application/json',
+            'Accept' : 'application/json',
+          }
+        })
+        .then(res => res.json())
+        .then(result => {
+          if (result.status == 200) {
+            setCategories(result.data);
+          } else {
+            console.log("Somthing went wrong");
+          }      
+         
+        })
+      }
+  
+      useEffect(() => {
+        fetchCategories();
+      },[])
+
   return (
     <footer className='py-5 text-white'>
 
@@ -15,25 +46,24 @@ const Footer = () => {
                 <div className="col-md-3 pb-4">
                     <h2 className='mb-3'>Categories</h2>
                     <ul>
-                      <li>
-                        <a href="">Kids</a>
-                      </li>
-                      <li>
-                        <a href="">Women</a>
-                      </li>
-                      <li>
-                        <a href="">Mens</a>
-                      </li>
+                      {categories && categories.map(category => (
+                        <li key={`cat-${category.id}`}>
+                          <a href={`/shop?category=${category.id}`}>
+                            {category.name}
+                          </a>
+                        </li>
+                      ))}
                     </ul>
+
                 </div>
                 <div className="col-md-3 pb-4">
                     <h2 className='mb-3'>Quick Links</h2>
                     <ul>
                       <li>
-                        <a href="">Login</a>
+                        <Link to="/account/login">Login</Link>
                       </li>
                       <li>
-                        <a href="">Register</a>
+                        <Link to="/account/register">Register</Link>
                       </li>
                     </ul>
                 </div>

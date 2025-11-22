@@ -7,6 +7,7 @@ use App\Http\Controllers\admin\ProductController;
 use App\Http\Controllers\admin\ShippingController;
 use App\Http\Controllers\admin\SizeController;
 use App\Http\Controllers\admin\TempImageController;
+use App\Http\Controllers\admin\UserController;
 use App\Http\Controllers\front\AccountController;
 use App\Http\Controllers\front\OrderController;
 use App\Http\Controllers\admin\OrderController as AdminOrderController;
@@ -26,6 +27,21 @@ Route::get('get-product/{id}',[FrontProductController::class,'getProduct']);
 Route::post('register',[AccountController::class,'register']);
 Route::post('login',[AccountController::class,'authenticate']);
 Route::get('get-shipping-front',[FrontShippingController::class,'getShipping']);
+
+Route::get('/dashboard/stats', function () {
+    return response()->json([
+        'status' => 200,
+        'data' => [
+            'users' => \App\Models\User::where('role', 'customer')->count(),
+            'orders' => \App\Models\Order::count(),
+            'products' => \App\Models\Product::count(),
+        ]
+    ]);
+});
+
+
+
+
 
 Route::group(['middleware' => ['auth:sanctum','checkUserRole']],function(){
     Route::post('save-order',[OrderController::class,'saveOrder']);
@@ -63,5 +79,7 @@ Route::group(['middleware' => ['auth:sanctum','checkAdminRole']],function(){
 
     Route::get('get-shipping',[ShippingController::class,'getShipping']);
     Route::post('save-shipping',[ShippingController::class,'updateShipping']);
+
+    Route::resource('users',UserController::class);
 
 });
