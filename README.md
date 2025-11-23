@@ -46,4 +46,4 @@ A full-stack eCommerce platform with Stripe payment integration, Admin Panel, Us
 
 ### 1. Clone the repository
 ```bash
-git clone https://github.com/your-username/your-repository.git
+https://github.com/AyodhyaSankalpa/Laravel-React-E-commerce.git
