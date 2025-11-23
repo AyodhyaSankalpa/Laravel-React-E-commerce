@@ -1,61 +1,49 @@
-E-Commerce Web Application (React 19 + Laravel 12)
+# E-Commerce Web Application  
+### Built with React 19 (Frontend) + Laravel 12 (Backend)
 
-A complete full-stack eCommerce web application built using React 19 (Frontend) and Laravel 12 (Backend API).
-This project includes Stripe payment integration, an advanced Admin Panel, a user-friendly Customer Dashboard, and fully tested REST APIs using Postman.
+A full-stack eCommerce platform with Stripe payment integration, Admin Panel, User Dashboard, and fully tested REST APIs using Postman.
 
-🚀 Features
-🛒 User Features
+---
 
-User registration & login (API-based authentication)
+## 🚀 Features
 
-Update profile details
+### 🛒 User
+- Register & Login (API-based)
+- Update profile
+- Browse products & categories
+- Add to cart & checkout
+- Stripe payment integration
+- View orders & order details
 
-Browse products & categories
+### 🛠 Admin
+- Manage products
+- Manage categories
+- Manage orders
+- Manage customers
+- Admin dashboard overview
 
-Add to cart & checkout
+---
 
-Stripe payment integration
+## 🧰 Tech Stack
 
-View order history & order details
+**Frontend:**  
+- React 19  
+- React Router  
+- Axios  
 
-🛠 Admin Features
+**Backend:**  
+- Laravel 12  
+- MySQL  
+- Stripe Payment Gateway  
 
-Manage products (create/update/delete)
+**Tools:**  
+- Postman  
+- Git / GitHub  
 
-Manage categories
+---
 
-Manage orders & order statuses
+## ⚙️ Installation
 
-Manage customers
-
-
-🧩 System Features
-
-REST API architecture
-
-API validation & error handling
-
-Postman collection for API testing
-
-Clean folder structure
-
-Secure Stripe payment flow
-
-🧪 Tech Stack
-Frontend
-
-React 19
-
-React Router
-
-Axios
-
-Backend
-
-Laravel 12
-
-Laravel Sanctum / Passport (if used)
-
-Stripe PHP SDK
-
-MySQL Database
+### 1. Clone the repository
+```bash
+git clone https://github.com/your-username/your-repository.git
